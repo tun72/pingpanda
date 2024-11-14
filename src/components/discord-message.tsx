@@ -47,21 +47,26 @@ function DiscordMessage({
           height={40}
           className="object-cover rounded-full mr-3"
         />
+      </div>
 
-        <div className="w-full max-w-xl">
-          <div className=" font-semibold text-white">{username}</div>
-          <span className=" ml-2 px-1.5 py-0.5 text-xs font-semibold bg-brand-600 text-white rounded">
+      <div className="w-full max-w-xl">
+        <div className="flex items-center">
+          <p className=" font-semibold text-white">{username}</p>
+          <span className="ml-2 px-1.5 py-0.5 text-xs font-semibold bg-brand-600 text-white rounded">
+            App
+          </span>
+          <span className="text-gray-400 ml-1.5 text-xs font-normal">
             {timestamp}
           </span>
         </div>
 
         <div className="bg-[#2f3136] text-sm w-full rounded p-3 mb-4 mt-1.5">
-          <div className=" flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+          <div className=" flex flex-row items-center justify-between mb-2">
             {badgeText ? (
               <span
                 className={cn(
                   "inline-flex order-2 items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset",
-                  getBadgeStyles("#faa61a")
+                  getBadgeStyles(badgeColor)
                 )}
               >
                 {badgeText}
@@ -81,7 +86,7 @@ function DiscordMessage({
           })}
 
           <p className=" text-[#72767d] text-xs mt-2 flex items-center">
-            <Clock className=" size-3 mr-1"> {timestamp}</Clock>
+            <Clock className=" size-3 mr-1" /> {timestamp}
           </p>
         </div>
       </div>
