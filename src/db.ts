@@ -9,6 +9,8 @@ declare global {
 
 let prisma: PrismaClient
 if (process.env.NODE_ENV === "production") {
+
+  // for deployment
   const pool = new Pool({ connectionString: process.env.DATABASE_URL })
   const adapter = new PrismaNeon(pool)
   prisma = new PrismaClient({ adapter })
