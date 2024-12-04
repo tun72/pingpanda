@@ -20,7 +20,7 @@ async function Page() {
     redirect("/sign-in")
   }
 
-  return <DashboardPage title="Dashboard">
+  return <DashboardPage cta={<p>cta</p>} title="Dashboard">
     <DashBoardPageContent />
   </DashboardPage>
 }
