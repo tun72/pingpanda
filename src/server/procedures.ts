@@ -31,7 +31,7 @@ const authMiddleware = j.middleware(async ({ c, next }) => {
     where: { externalId: auth.id },
   })
 
-  if (!auth) {
+  if (!user) {
     throw new HTTPException(401, { message: "Unauthorized" })
   }
 
