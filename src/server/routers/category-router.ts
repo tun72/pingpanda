@@ -9,10 +9,11 @@ import {
   CATEGORY_NAME_VALIDATOR,
 } from "@/lib/vendors/category-validator"
 import { parseColor } from "@/lib/utils"
-import { HTTPException } from "hono/http-exception"
+
 
 export const categoryRouter = router({
   getEventCategories: privateProcedure.query(async ({ c, ctx }) => {
+    
     const categories = await db.eventCategory.findMany({
       where: { userId: ctx.user?.id },
       select: {

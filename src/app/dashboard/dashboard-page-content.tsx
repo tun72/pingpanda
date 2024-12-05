@@ -44,7 +44,7 @@ function DashBoardPageContent() {
   }
   return (
     <>
-      <ul className="grid max-w-6xl grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+      <ul className="grid max-w-6xl grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  gap-8">
         {categories.map((category) => (
           <li
             key={category.id}
@@ -117,7 +117,7 @@ function DashBoardPageContent() {
                 </Link>
 
                 <Button
-                  className=" text-gray-500 hover:text-red-600 transition-colors"
+                  className=" text-gray-500 hover:text-red-600 transition-colors  bg-transparent hover:bg-gray-100"
                   aria-label={`Delete ${category.name} category`}
                   onClick={() => setDeletingCategory(category.name)}
                 >

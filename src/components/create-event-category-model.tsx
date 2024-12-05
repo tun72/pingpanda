@@ -24,12 +24,11 @@ function CreateEventCategoryModel({ children }: PropsWithChildren) {
 
   const { mutate: createEventCategory, isPending: isCreating } = useMutation({
     mutationFn: async (data: EventCategoryForm) => {
-     await client.category.createEventCategory.$post(data)
-      
+      await client.category.createEventCategory.$post(data)
     },
     onSuccess: () => {
-        queryClient.invalidateQueries({queryKey: ["user-event-categories"]})
-        setIsOpen(false)
+      queryClient.invalidateQueries({ queryKey: ["user-event-categories"] })
+      setIsOpen(false)
     },
   })
   const EVENT_CATEGORY_VALIDATOR = z.object({
@@ -40,18 +39,18 @@ function CreateEventCategoryModel({ children }: PropsWithChildren) {
 
   type EventCategoryForm = z.infer<typeof EVENT_CATEGORY_VALIDATOR>
 
-  const COLOR_OPTIONS = {
-    BrightRed: { bg: "#FF6B6B", ring: "#FF6B6B" },
-    Teal: { bg: "#4ECDC4", ring: "#4ECDC4" },
-    SkyBlue: { bg: "#45B7D1", ring: "#45B7D1" },
-    LightSalmon: { bg: "#FFA07A", ring: "#FFA07A" },
-    SeafoamGreen: { bg: "#98D8C8", ring: "#98D8C8" },
-    MustardYellow: { bg: "#FDCB6E", ring: "#FDCB6E" },
-    SoftPurple: { bg: "#6C5CE7", ring: "#6C5CE7" },
-    Pink: { bg: "#FF85A2", ring: "#FF85A2" },
-    EmeraldGreen: { bg: "#2ECC71", ring: "#2ECC71" },
-    Terracotta: { bg: "#E17055", ring: "#E17055" },
-  }
+  const COLOR_OPTIONS = [
+    { bg: "#FF6B6B", ring: "#FF6B6B" },
+    { bg: "#4ECDC4", ring: "#4ECDC4" },
+    { bg: "#45B7D1", ring: "#45B7D1" },
+    { bg: "#FFA07A", ring: "#FFA07A" },
+    { bg: "#98D8C8", ring: "#98D8C8" },
+    { bg: "#FDCB6E", ring: "#FDCB6E" },
+    { bg: "#6C5CE7", ring: "#6C5CE7" },
+    { bg: "#FF85A2", ring: "#FF85A2" },
+    { bg: "#2ECC71", ring: "#2ECC71" },
+    { bg: "#E17055", ring: "#E17055" },
+  ]
 
   const EMOJI_OPTION = [
     { emoji: "💰", label: "Money (Sale)" },
@@ -119,18 +118,19 @@ function CreateEventCategoryModel({ children }: PropsWithChildren) {
             <div>
               <Label htmlFor="color">Color</Label>
               <div className=" flex flex-wrap gap-3 mt-2">
-                {Object.entries(COLOR_OPTIONS).map(([key, value]) => (
+                {COLOR_OPTIONS.map((premadeColor) => (
                   <button
-                    key={value.bg}
+                    key={premadeColor.bg}
+                    style={{ backgroundColor: `${premadeColor.bg}` }}
                     type="button"
                     className={cn(
-                      `bg-[${value.bg}]`,
+                      `bg-[${premadeColor.bg}]`,
                       "size-10 rounded-full ring-2 ring-offset-2 transition-all",
-                      color === value.bg
-                        ? `ring-[${value.ring}] scale-110`
+                      color === premadeColor.bg
+                        ? `ring-[${premadeColor.ring}] scale-110`
                         : "ring-transparent hover:scale-105"
                     )}
-                    onClick={() => setValue("color", value.bg)}
+                    onClick={() => setValue("color", premadeColor.bg)}
                   ></button>
                 ))}
               </div>
@@ -149,6 +149,7 @@ function CreateEventCategoryModel({ children }: PropsWithChildren) {
                   <button
                     key={premadeEmoji.label}
                     type="button"
+                    
                     className={cn(
                       "size-10  transition-all text-xl rounded-md flex items-center justify-center",
                       emoji === premadeEmoji.emoji
@@ -174,7 +175,9 @@ function CreateEventCategoryModel({ children }: PropsWithChildren) {
                 Cancel
               </Button>
 
-              <Button type="submit" disabled={isCreating}>{isCreating ? "Creating..." : "Create Category"}</Button>
+              <Button type="submit" disabled={isCreating}>
+                {isCreating ? "Creating..." : "Create Category"}
+              </Button>
             </div>
           </div>
         </form>

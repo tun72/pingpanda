@@ -27,7 +27,7 @@ async function Page() {
     <DashboardPage
       cta={
         <CreateEventCategoryModel>
-          <Button className="w-fit">
+          <Button className="sm:w-fit w-full">
             <PlusIcon className="size-4 mr-2" />
             Add Category
           </Button>
