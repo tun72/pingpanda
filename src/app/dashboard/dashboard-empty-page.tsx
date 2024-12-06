@@ -1,8 +1,58 @@
-import React from 'react'
+import Card from "@/components/Card"
+import CreateEventCategoryModel from "@/components/create-event-category-model"
+import { Button } from "@/components/ui/button"
+import { client } from "@/lib/client"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+
+import React from "react"
 
 function DashboardEmptyPage() {
+  const queryClient = useQueryClient()
+
+  const { mutate: quickStart, isPending: isCreating, isSuccess } = useMutation({
+    mutationFn: async () => {
+      await client.category.createQuickstartCategories.$post()
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user-event-categories"] })
+    },
+  })
   return (
-    <div>DashboardEmptyPage</div>
+    <Card className="flex flex-col items-center justify-center flex-1 rounded-2xl text-center p-6">
+      <div className=" flex justify-center w-full ">
+        <img
+          src="/brand-asset-wave.png"
+          alt="No categories"
+          className="size-[10rem] sm:size-48 -mt-24 "
+        />
+      </div>
+
+      <h1 className=" mt-2 text-xl/8 font-medium tracking-tight text-gray-900">
+        No Event Categories Yet
+      </h1>
+
+      <p className=" text-sm/6 text-gray-600 max-w-prose mt-2 mb-8">
+        Start tracking events by creating your first category
+      </p>
+
+      <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+        <Button
+          onClick={() => quickStart()}
+          disabled={isSuccess || isCreating}
+          variant={"outline"}
+          className="flex items-center space-x-2 w-full sm:w-auto"
+        >
+          <span className="size-5">🚀</span>
+          <span>{isCreating ? "Creating..." : "Quick Start"}</span>
+        </Button>
+
+        <CreateEventCategoryModel contentClassName="w-full sm:w-fit">
+          <Button className="flex items-center space-x-2 w-full sm:w-auto">
+            Add Category
+          </Button>
+        </CreateEventCategoryModel>
+      </div>
+    </Card>
   )
 }
 

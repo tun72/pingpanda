@@ -8,6 +8,7 @@ import { format, formatDistanceToNow } from "date-fns"
 import { ArrowRight, Clock, Database, Trash2 } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
+import DashboardEmptyPage from "./dashboard-empty-page"
 
 function DashBoardPageContent() {
   const [deletingCategory, setDeletingCategory] = useState<string | null>(null)
@@ -40,11 +41,11 @@ function DashBoardPageContent() {
   }
 
   if (!categories || categories.length === 0) {
-    return <div>empty state</div>
+    return <DashboardEmptyPage />
   }
   return (
     <>
-      <ul className="grid max-w-6xl grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  gap-8">
+      <ul className="grid max-w-6xl grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4  gap-8">
         {categories.map((category) => (
           <li
             key={category.id}
@@ -112,7 +113,7 @@ function DashBoardPageContent() {
                     className: "flex items-center gap-2 text-sm",
                   })}
                 >
-                  {" "}
+                 
                   View all <ArrowRight className="size-4" />
                 </Link>
 

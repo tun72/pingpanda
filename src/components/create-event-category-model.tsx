@@ -17,7 +17,14 @@ import { Button } from "./ui/button"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { client } from "@/lib/client"
 
-function CreateEventCategoryModel({ children }: PropsWithChildren) {
+interface CreateEventCategoryModelProps extends PropsWithChildren {
+  contentClassName?: string
+}
+
+function CreateEventCategoryModel({
+  children,
+  contentClassName,
+}: CreateEventCategoryModelProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const queryClient = useQueryClient()
@@ -82,7 +89,9 @@ function CreateEventCategoryModel({ children }: PropsWithChildren) {
   }
   return (
     <>
-      <div onClick={() => setIsOpen(true)}>{children}</div>
+      <div className={contentClassName} onClick={() => setIsOpen(true)}>
+        {children}
+      </div>
       <Modal
         setShowModal={setIsOpen}
         showModal={isOpen}
@@ -149,7 +158,6 @@ function CreateEventCategoryModel({ children }: PropsWithChildren) {
                   <button
                     key={premadeEmoji.label}
                     type="button"
-                    
                     className={cn(
                       "size-10  transition-all text-xl rounded-md flex items-center justify-center",
                       emoji === premadeEmoji.emoji
